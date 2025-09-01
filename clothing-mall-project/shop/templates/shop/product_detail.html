@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ product.name }}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'shop/style.css' %}">
+</head>
+<body>
+    <header>
+        <div class="logo">내 옷장</div>
+        <nav>
+            <a href="{% url 'landing_page' %}">홈</a>
+            </nav>
+    </header>
+
+    <main class="product-detail-container">
+        <img src="{{ product.image.url }}" alt="{{ product.name }}">
+        <div>
+            <h2>{{ product.name }}</h2>
+            <p class="price">{{ product.price }}원</p>
+            <p class="description">{{ product.description }}</p>
+            <button>장바구니에 담기</button>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 내 옷장. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>

@@ -4,16 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>👕의류 쇼핑몰</title>
-    <link rel="stylesheet" href="style.css">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'shop/style.css' %}">
 </head>
 <body>
     <header>
         <div class="logo">내 옷장</div>
         <nav>
-            <a href="#">홈</a>
+            <a href="{% url 'landing_page' %}">홈</a>
             <a href="#">신상품</a>
             <a href="#">베스트</a>
-            <a href="#">로그인</a>
+            {% if user.is_authenticated %}
+                <span>안녕하세요, {{ user.username }}님!</span>
+                <a href="{% url 'logout_user' %}">로그아웃</a>
+            {% else %}
+                <a href="{% url 'login_page' %}">로그인</a>
+            {% endif %}
         </nav>
     </header>
 
@@ -27,11 +33,16 @@
         <section class="product-list">
             <h2>베스트 셀러</h2>
             <div class="products">
+                {% for product in products %}
                 <div class="product-item">
-                    <img src="placeholder.jpg" alt="상품1">
-                    <h3>린넨 셔츠</h3>
-                    <p>45,000원</p>
+                    <a href="{% url 'product_detail' product.id %}">
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                    <h3>{{ product.name }}</h3>
+                    </a>
+                    <p>{{ product.price }}원</p>
+                    <a href="#">장바구니에 담기</a>
                 </div>
+                {% endfor %}
             </div>
         </section>
     </main>
